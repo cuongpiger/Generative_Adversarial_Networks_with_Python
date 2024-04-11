@@ -33,6 +33,7 @@
 |6|`sudo apt update && apt-cache madison $PACKAGE_NAME \| tac`|List all versions of a package in Ubuntu.|To list all the version of `kubeadm` package, I **CAN** assign `kubeadm` to the `$PACKAGE_NAME` variable.||
 |7|`chmod 600 $SSH_PRIVATE_KEY && chown $USER:$USER $SSH_PRIVATE_KEY`|Change permissions and owner of the ssh private key file to CAN be used.|||
 |8|[solution](./linux/01.md)|Add new user with `NOPASSWD:ALL`||`sudo`, `user`|
+|9|`find $HOME -type f -exec du -h {} + 2>/dev/null \| sort -rh \| head -n 1 \| awk '{print $2}'`|Find the largest files in the `$HOME` directory||`disk`, `file`|
 
 # ☸ Kubernetes
 |#|Command|Description|Note|
