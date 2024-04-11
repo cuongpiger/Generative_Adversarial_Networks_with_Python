@@ -34,6 +34,7 @@
 |7|`chmod 600 $SSH_PRIVATE_KEY && chown $USER:$USER $SSH_PRIVATE_KEY`|Change permissions and owner of the ssh private key file to CAN be used.|||
 |8|[solution](./linux/01.md)|Add new user with `NOPASSWD:ALL`||`sudo`, `user`|
 |9|`find $HOME -type f -exec du -h {} + 2>/dev/null \| sort -rh \| head -n 1 \| awk '{print $2}'`|Find the largest files in the `$HOME` directory||`disk`, `file`|
+|10|[solution](./linux/03.md)|**Fix bugs**: Webcam is not recognized after reboot machine, MUST unplug and plun the webcam||`webcam`, `linux`|
 
 # ☸ Kubernetes
 |#|Command|Description|Note|
