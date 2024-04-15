@@ -12,6 +12,8 @@
 |7|`docker save -o $OUTPUT_TAR_FILE $IMAGE_NAME`|Save an image to a tar file|For example: `docker save -o nginx.tar nginx`||
 |8|`docker load -i $INPUT_TAR_FILE`|Load an image from a tar file|For example: `docker load -i nginx.tar`||
 |9|`docker network ls`|List all networks|||
+|10|`docker system df`|Show docker disk usage|||
+|11|`docker buildx prune -f`|Remove build cache forcefully|||
 
 # Git
 |#|Command|Description|Note|
