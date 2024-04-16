@@ -5,6 +5,8 @@
 #      ExecPod:
 #        - lsblk: 
 #      Delete: PASS
+#      Resize: PASS => exec pod lsblk PASS
+#      Change IOPS: PASS
 # Scenario: Test SSD 400 disk
 ####################################################################################################
 
@@ -12,9 +14,11 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: my-storage-class                            # [1] The StorageClass name, CAN be changed
-provisioner: bs.csi.vngcloud.vn                        # The CSI driver name
+provisioner: bs.csi.vngcloud.vn                     # The CSI driver name, MUST set this value
 parameters:
   type: vtype-6790f903-38d2-454d-919e-5b49184b5927  # Change it to your volume type UUID from portal
+  ispoc: "true"
+allowVolumeExpansion: true                          # MUST set this value to allow the Volume Expansion feature
 ---
 
 apiVersion: v1

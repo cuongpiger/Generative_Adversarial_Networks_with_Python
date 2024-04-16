@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/www/html
+          name: my-volume-name
+      volumes:
+      - name: my-volume-name
+        persistentVolumeClaim:
+          claimName: my-pvc-snapshot-restore     # MUST be same value with [1]@03_restore.yaml
+          readOnly: false

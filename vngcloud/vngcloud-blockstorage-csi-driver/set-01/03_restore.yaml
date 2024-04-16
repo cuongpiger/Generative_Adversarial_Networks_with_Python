@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc-snapshot-restore                                 # [1] The name of the PVC, CAN be changed
+spec:
+  storageClassName: my-storage-class                            # MUST match with [1]@01_pvc.yaml, or you CAN change if you have any other StorageClass
+  dataSource:
+    name: my-new-snapshot                                       # MUST match with [3]@02_vs.yaml
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30Gi                                             # MUST greater or equal to the RESTORESIZE of the VolumeSnapshot, use kubectl get vs to check (colum RESTORESIZE)

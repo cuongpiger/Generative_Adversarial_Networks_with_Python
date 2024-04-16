@@ -1,0 +1,16 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: vngcloud-vsclass                    # [1] The name of the volume snapshot class, CAN be changed
+driver: bs.csi.vngcloud.vn                  # The CSI driver name, MUST set this value to the CSI driver name
+deletionPolicy: Delete                      # Delete snapshot policy, CAN be set to Retain
+---
+
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: my-new-snapshot                            # [3] The name of the snapshot, CAN be changed
+spec:
+  volumeSnapshotClassName: vngcloud-vsclass        # MUST match with [1]
+  source:
+    persistentVolumeClaimName: my-pvc              # MUST match with [2]@01_pvc.yaml
