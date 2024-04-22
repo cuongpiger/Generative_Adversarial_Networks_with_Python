@@ -1,0 +1,77 @@
+# On the migrated cluster
+
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: vngcloud-vsclass                      # [1] The name of the volume snapshot class, CAN be changed
+driver: bs.csi.vngcloud.vn                    # The CSI driver name, MUST set this value to the CSI driver name
+deletionPolicy: Retain                        # Retain snapshot policy, CAN be set to Retain
+---
+
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: cuongdm3-vsc                          # [2] The VolumeSnapshotContent name, CAN be changed
+  namespace: default
+spec:
+  volumeSnapshotRef:
+    kind: VolumeSnapshot
+    name: cuongdm3-vs                         # [3] The VolumeSnapshot name, CAN be changed
+    namespace: default
+  source:
+    snapshotHandle: snap-vol-pt-c460f63a-bbba-4746-9384-29b197b148c5   # [4][IMPORTANT] Please change it to the proper VngCloud portal snapshot ID
+  driver: bs.csi.vngcloud.vn
+  deletionPolicy: Delete
+  volumeSnapshotClassName: vngcloud-vsclass   # MUST be same value with [1]
+---
+
+
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: cuongdm3-vs                           # MUST be same value with [3]
+  namespace: default
+spec:
+  volumeSnapshotClassName: vngcloud-vsclass   # MUST be same value with [1]
+  source:
+    volumeSnapshotContentName: cuongdm3-vsc   # MUST be same value with [2]
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cuongdm3-pvc                          # [5] The PVC name, CAN be changed
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: sc-iops-200-retain        # [6] The StorageClass name, CAN be changed
+  resources:
+    requests:
+      storage: 20Gi                           # SHOULD be same value from portal
+  dataSource:
+    name: cuongdm3-vs                         # MUST be same value with [3]
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    volumeMounts:
+      - mountPath: /usr/share/nginx/html            # The mount path in container, CAN be changed
+        name: my-volume-name                        # MUST be same value with [7]
+  volumes:
+  - name: my-volume-name                            # [7] The volume mount name, CAN be changed
+    persistentVolumeClaim:
+      claimName: cuongdm3-pvc                       # MUST be same value with [5]
+      readOnly: false

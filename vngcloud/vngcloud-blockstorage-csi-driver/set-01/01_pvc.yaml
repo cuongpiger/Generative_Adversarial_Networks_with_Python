@@ -47,7 +47,7 @@ spec:
     - containerPort: 80
       protocol: TCP
     volumeMounts:
-      - mountPath: /var/lib/www/html                # The mount path in container, CAN be changed
+      - mountPath: /usr/share/nginx/html                # The mount path in container, CAN be changed
         name: my-volume-name                        # MUST be same value with [4]
   volumes:
   - name: my-volume-name                            # [4] The volume mount name, CAN be changed
