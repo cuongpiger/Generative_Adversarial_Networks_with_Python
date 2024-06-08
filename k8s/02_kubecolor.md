@@ -37,3 +37,10 @@
 
   source ~/.bashrc
   ```
+
+- Yayyyy, final result:
+  ```bash
+  k get all -owide -A
+  ```
+  ![](./../img/k8s/05.png)
+  
