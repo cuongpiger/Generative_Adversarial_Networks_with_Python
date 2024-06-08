@@ -1,4 +1,4 @@
-###### [_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud)
+`###### [_↩ Back to `main` branch_](https://github.com/cuongpiger/cloud)
 
 # 🐳 Docker
 |#|Command|Description|Note|Tag|
@@ -47,6 +47,7 @@
 |4|`kubectl exec -it <POD_NAME> -c <CONTAINER_NAME> -- bash`|Get into a container in a pod.||
 |5|`chmod o-r ~/.kube/config && chmod g-r ~/.kube/config`|Remove warning in Helm: `WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /root/.kube/config`|- Create the `config` file in the directory `~/.kube/` instead of using `KUBECONFIG` variable.|
 |6||[List of config file in Kubernetes deployed by `kubeadm`](./k8s/)||
+|7||[`kubecolor` a super tool to make `kubectl` feel better](./k8s/02_kubecolor.md)|
 
 # Tools
 |#|Command/Instruction|Description|Note|Tag|
