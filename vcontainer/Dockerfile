@@ -14,7 +14,15 @@ RUN apt update && apt install -y traceroute tmux make telnet git dnsutils curl w
     dpkg -i octant_0.25.1_Linux-64bit.deb && rm octant_0.25.1_Linux-64bit.deb && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir -p ~/.kube && touch ~/.kube/config && \
-    chmod o-r ~/.kube/config && chmod g-r ~/.kube/config
+    chmod o-r ~/.kube/config && chmod g-r ~/.kube/config && \
+    wget -O kubecolor.tar.gz https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.tar.gz && \
+    tar -xzvf kubecolor.tar.gz && \
+    mv kubecolor /usr/local/bin/ && \
+    rm -rf kubecolor.tar.gz && \
+    echo "alias k=kubecolor" >> ~/.bashrc && \
+    curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell && \
+    chmod +x ./kubectl-node_shell && \
+    mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
 
 CMD ["/bin/bash"]
 

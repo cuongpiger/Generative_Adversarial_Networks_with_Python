@@ -1,8 +1,8 @@
 #!/bin/bash
 
 REGISTRY_URL=quay.io/cuongdm8499
-IMAGE_NAME=cdm-vcontainer
-IMAGE_TAG=v0.0.6
+IMAGE_NAME=vks-terminal
+IMAGE_TAG=v1.0.0
 
 build() {
   echo "Building..."
